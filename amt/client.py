@@ -88,7 +88,8 @@ class Client(object):
                              headers={'content-type':
                                       'application/soap+xml;charset=UTF-8'},
                              auth=HTTPDigestAuth(self.username, self.password),
-                             data=payload)
+                             data=payload,
+                             verify=False)
         resp.raise_for_status()
         if ns:
             rv = _return_value(resp.content, ns)
@@ -139,6 +140,7 @@ class Client(object):
                              auth=HTTPDigestAuth(self.username, self.password),
                              data=payload)
         resp.raise_for_status()
+        print(resp.content)
         value = _find_value(
             resp.content,
             CIM_AssociatedPowerManagementService,
